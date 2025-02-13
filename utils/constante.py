@@ -1,0 +1,3 @@
+FILE_PLAYER = "/Users/arnauddekertanguy/Documents/openclassrooms/Projets-Soutenance/Projet3-app_cavalier/cavalier_app/data/players.json"
+FILE_TOURNAMENT = "/Users/arnauddekertanguy/Documents/openclassrooms/Projets-Soutenance/Projet3-app_cavalier/cavalier_app/data/tournaments.json"
+FILE_ADMIN = "/Users/arnauddekertanguy/Documents/openclassrooms/Projets-Soutenance/Projet3-app_cavalier/cavalier_app/data/admin.json"

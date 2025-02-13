@@ -1,9 +1,24 @@
 [
     {
-        "player1": "Arnaud",
-        "player2": "James",
-        "round_number": 1,
-        "time": "10:00",
-        "result": "None"
+        "Nom": "Toulouse Master1000",
+        "Lieu": "Toulouse",
+        "Date de debut": "14/03/2025",
+        "Date de fin": "17/03/2025",
+        "Player number": 16,
+        "Round total": 5,
+        "Description": "",
+        "Round actuel": 0,
+        "Joueurs inscrits": []
+    },
+    {
+        "Nom": "Lyon Master1000",
+        "Lieu": "Lyon",
+        "Date de debut": "12/02/2025",
+        "Date de fin": "15/02/2025",
+        "Player number": 8,
+        "Round total": 4,
+        "Description": "aucune",
+        "Round actuel": 0,
+        "Joueurs inscrits": []
     }
 ]
