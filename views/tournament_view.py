@@ -72,7 +72,6 @@ class ViewTournament:
 
     def register_tournament(self, tournament, player_selected):
         while len(tournament.players_inscrits) < tournament.player_number:
-            print(f"Il reste {tournament.player_number - len(tournament.players_inscrits)} places.")
             tournament.register_player(player_selected)
             print(tournament.show_players_inscrits())
             break
@@ -80,42 +79,42 @@ class ViewTournament:
             print("Le tournois est complet.")
 
     def manage_score(self, tournament):
-        print("Veuillez saisir le numéro du round pour modifier les scores.")
-        round_number = int(input("Numéro du round : "))
 
-        round_found = False
         for round_instance in tournament.rounds:
-            if round_instance.tour == round_number:
-                round_found = True
-                print(f"Modification des scores pour le round {round_number}:")
+            if round_instance.state == "en attente":
+
+                print(f"Modification des scores :")
 
                 for match in round_instance.matches:
                     print(f"{match.player1} vs {match.player2} - Résultat actuel: {match.result}")
 
-                    new_result = input(
-                        f"Entrez le résultat pour {match.player1} vs {match.player2} "
-                        f"(1: {match.player1} gagne, 2: {match.player2} gagne, 0: match nul) : ")
+                    while True:
+                        new_result = input(
+                            f"Entrez le résultat pour {match.player1["identifiant"]} vs {match.player2["identifiant"]} "
+                            f"(1: {match.player1["identifiant"]} gagne, 2: {match.player2["identifiant"]} gagne, 0: match nul) : ")
 
-                    if new_result == "1":
-                        match.match_result(match.player1, tournament.players_inscrits)
-                    elif new_result == "2":
-                        match.match_result(match.player2, tournament.players_inscrits)
-                    elif new_result == "0":
-                        match.match_result(None, tournament.players_inscrits)
-                    else:
-                        print("Entrée invalide, aucun changement appliqué.")
-                        continue  # Passer au match suivant
+                        if new_result == "1":
+                            match.match_result(match.player1, tournament.players_inscrits)
+                            break
+                        elif new_result == "2":
+                            match.match_result(match.player2, tournament.players_inscrits)
+                            break
+                        elif new_result == "0":
+                            match.match_result(None, tournament.players_inscrits)
+                            break
+                        else:
+                            print("Entrée invalide, aucun changement appliqué.")
 
                 tournament.update()
                 print("Scores mis à jour avec succès.")
 
+                # Vérifier si tous les matchs ont un résultat pour avancer au round suivant
                 if all(match.result is not None for match in round_instance.matches):
                     tournament.advance_to_next_round()
 
-                break
+                break  # Sortir de la boucle après avoir trouvé et modifié le round
 
-        if not round_found:
-            print(f"ERREUR : Aucun round trouvé pour le numéro {round_number}")
+
 
 
 

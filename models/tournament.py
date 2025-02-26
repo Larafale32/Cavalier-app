@@ -1,6 +1,8 @@
 import json
 import random
 import uuid
+
+from models import match
 from models.player import Player, players_list
 from models.match import Match
 from models.round import Round, Round1
@@ -74,16 +76,29 @@ class Tournois:
             "joueurs_inscrits": [[player["identifiant"], player["score"]] for player in self.players_inscrits],
             "rounds": [round.to_dict() for round in self.rounds]
         }
-    def advance_to_next_round(self):
-        self.round_actuel += 1
-        self.rounds[-1].state = "Terminé"
-        new_pairs = self.create_pairs()
-        print(new_pairs)
 
-        new_round = Round(self.round_actuel, new_pairs)
+    def advance_to_next_round(self):
+        if self.round_actuel == self.round_number:
+            print("Tous les rounds ont été terminés. Fin du tournoi.")
+            return
+
+        self.rounds[-1].state = "Terminé"
+
+        new_pairs = self.create_pairs()
+        print("Nouveaux matchs pour le round suivant :", new_pairs)
+
+        self.round_actuel += 1
+        new_round = Round(self.round_actuel)
+
+        for pair in new_pairs:
+            match = Match(pair[0], pair[1], round_number=self.round_actuel, time="15")
+            new_round.add_match(match)
+
         self.rounds.append(new_round)
 
         self.update()
+
+        print(f"Round {self.round_actuel} ajouté avec {len(new_round.matches)} matchs.")
 
     def create_pairs(self):
         classement = self.get_classement()
@@ -109,13 +124,14 @@ class Tournois:
             print("Début du tournoi")
             random.shuffle(self.players_inscrits)
             round_instance = Round(int(self.round_actuel + 1))
+            self.round_actuel += 1
 
             for i in range(0, len(self.players_inscrits), 2):
                 if i + 1 < len(self.players_inscrits):
                     match = Match(self.players_inscrits[i], self.players_inscrits[i+1], round_number=1, time="15")
                     round_instance.add_match(match)
 
-            print("Round :", vars(round_instance))
+            print("Round :", round_instance.tour)
             print("Number of matches :", len(round_instance.matches))
 
             self.rounds.append(round_instance)
