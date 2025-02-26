@@ -30,4 +30,5 @@ class Application:
 App_main = Application()
 App_main.run()
 
-# raojouter des numéros pour les tournois
+#rajouter des numéros pour les tournois
+#générer le report avec le report, avoir le résultat stocké dans un fichier html

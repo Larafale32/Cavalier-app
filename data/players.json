@@ -8,7 +8,7 @@
         "id": "f469010f-529d-4b8f-a3e8-9f5e2927a2d9"
     },
     {
-        "surname": "Lionel",
+        "surname": "L\u00e9o",
         "name": "Messi",
         "date_of_birth": "24/02/1974",
         "identifiant": 7865,
@@ -67,7 +67,7 @@
         "surname": "Loan",
         "name": "Dumez",
         "date_of_birth": "20/06/2000",
-        "identifiant": "2176",
+        "identifiant": 2176,
         "score": 0,
         "id": "159cf4cc-6654-4cf8-b0a1-58527d5ed144"
     },
@@ -75,7 +75,7 @@
         "surname": "Delmas",
         "name": "Loic",
         "date_of_birth": "01/11/2001",
-        "identifiant": "7841",
+        "identifiant": 7841,
         "score": 0,
         "id": "2d73eb60-7013-400f-bca9-a963c324ea09"
     }

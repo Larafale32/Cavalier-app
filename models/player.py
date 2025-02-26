@@ -16,7 +16,8 @@ class Player :
 
 
     def __str__(self):
-        return f"Player : {self.name} {self.surname}, Birth : {self.date_of_birth}, ID : {self.identifiant}"
+        return (f"Player : {self.name} {self.surname}, Birth : {self.date_of_birth}, ID : {self.identifiant}, "
+                f"Score : {self.score}")
 
 
     def to_dict(self): # convertir un objet en dictionnaire
@@ -40,20 +41,51 @@ class Player :
         with open(FILE_PLAYER, "w") as file:
             json.dump(players_data, file, indent=4)
 
+    def update(self):
+        try:
+            players_list = self.load_json() or []  # Charge la liste des tournois existants
+        except (FileNotFoundError, json.JSONDecodeError):
+            players_list = []
+
+        new_players_list = []
+        player_found = False
+
+        for player in players_list:
+            if player.identifiant == self.identifiant:  # Si c'est le tournoi à mettre à jour
+                new_players_list.append(self)  # Ajoute la version mise à jour
+                player_found = True
+            else:
+                new_players_list.append(player)  # Garde les autres inchangés
+
+        if not player_found:  # Si le tournoi n'existe pas encore, on l'ajoute
+            new_players_list.append(self)
+
+        # Sauvegarde des données mises à jour
+        with open(FILE_PLAYER, "w") as f:
+            json.dump([p.to_dict() for p in new_players_list], f, indent=4)
+
     @staticmethod
     def load_json():
             with open(FILE_PLAYER, "r") as file:
                 players_data = json.load(file)
                 list = []
                 for player_data in players_data:
-                    p = Player(player_data["surname"], player_data["name"], player_data["date_of_birth"], player_data["identifiant"], player_data["score"])
+                    p = Player(player_data["surname"],
+                               player_data["name"],
+                               player_data["date_of_birth"],
+                               int(player_data["identifiant"]) if player_data["identifiant"] is not None else None,
+                               player_data["score"])
                     p.id = player_data["id"]
                     list.append(p)
                 return list
 
 
 
+
+
 players_list = Player.load_json()
+
+
 
 
 # Player("de Kertanguy", "Arnaud", "30/04/2000", 2451).save()

@@ -4,8 +4,12 @@ from models.tournament import Tournois_Toulouse, Tournois_Lyon
 class ViewTournament:
     def show_tournaments(self):
         print("Liste des tournois :")
-        for tournament in Tournois.load_json():
-            print(tournament.nom)
+        count = 1
+        tournaments = Tournois.load_json()
+        for tournament in tournaments:
+            print(f"{count}: --> {tournament.nom}")
+            count += 1
+
 
     def create_tournament(self):
         print("Création d'un tournois")
@@ -32,41 +36,23 @@ class ViewTournament:
         print(f"Tournois {tournament_name} introuvable.")
 
 
-    def change_tournaments(self):
-        print("Gestion des tournois, sélectionnez une action : (1,2,3 ou 4)")
-        print("1) Ajouter un tournoi"
-              "\n2) Supprimer un tournoi"
-              "\n3) Manager les tournois"
-              "\n4) Afficher la liste des tournois"
-              "\n5) Quitter")
-        choice = input("Votre choix : ")
-        return choice
-
     def tournament_choice(self):
-        self.show_tournaments()
+        self.show_tournaments()  # Afficher la liste des tournois
         while True:
-            print("Sélectionner un tournois : (entrer son nom)")
-            selection = input("Votre choix : ")
-            selection_found = False
-            for tournament in Tournois.load_json():
-                if tournament.nom == selection:
-                    selection_found = True
-                    return selection
+            try:
+                # Demander à l'utilisateur de sélectionner un tournoi par son numéro
+                selection = int(input("Sélectionner un tournoi (par son numéro) : "))
+                tournaments = Tournois.load_json()
 
-            if not selection_found:
-                print("Tournoi introuvable")
-                return None
-
-
-    def manage_tournaments(self):
-        while True:
-            print("Quelle action voulez vous effectuer ? : (1,2,3 ou 4) ")
-            print("1) Démarrer le tournoi"
-                  "\n2) Inscrire des joueurs au tournoi"
-                  "\n3) Afficher/modifier les scores"
-                  "\n4) Retour")
-            choice = input("Votre choix : ")
-            return choice
+                # Vérifier si le numéro du tournoi sélectionné est valide
+                if 1 <= selection <= len(tournaments):
+                    selected_tournament = tournaments[selection - 1]
+                    print(selected_tournament.nom)
+                    return selected_tournament
+                else:
+                    print("Numéro de tournoi invalide, réessayez.")
+            except ValueError:
+                print("Entrée invalide. Veuillez entrer un nombre.")
 
 
     def start_tournament(self, tournament):
@@ -84,22 +70,57 @@ class ViewTournament:
         elif int(tournament.round_actuel) > 0:
             print("Le tournoi a déja commencé")
 
-    def register_tournament(self, tournament):
-        print(tournament.player_number)
-        while len(tournament.players_inscrits) < int(tournament.player_number):
+    def register_tournament(self, tournament, player_selected):
+        while len(tournament.players_inscrits) < tournament.player_number:
+            print(f"Il reste {tournament.player_number - len(tournament.players_inscrits)} places.")
+            tournament.register_player(player_selected)
             print(tournament.show_players_inscrits())
-            print("Incrire des joueurs au tournoi : (entrer leurs id)")
-            joueur_id = input("ID du joueur : ")
-            tournament.register_player(joueur_id)
-            tournament.show_players_inscrits()
             break
         else:
             print("Le tournois est complet.")
 
-
     def manage_score(self, tournament):
-        print(tournament.rounds)
-        pass
+        print("Veuillez saisir le numéro du round pour modifier les scores.")
+        round_number = int(input("Numéro du round : "))
+
+        round_found = False
+        for round_instance in tournament.rounds:
+            if round_instance.tour == round_number:
+                round_found = True
+                print(f"Modification des scores pour le round {round_number}:")
+
+                for match in round_instance.matches:
+                    print(f"{match.player1} vs {match.player2} - Résultat actuel: {match.result}")
+
+                    new_result = input(
+                        f"Entrez le résultat pour {match.player1} vs {match.player2} "
+                        f"(1: {match.player1} gagne, 2: {match.player2} gagne, 0: match nul) : ")
+
+                    if new_result == "1":
+                        match.match_result(match.player1, tournament.players_inscrits)
+                    elif new_result == "2":
+                        match.match_result(match.player2, tournament.players_inscrits)
+                    elif new_result == "0":
+                        match.match_result(None, tournament.players_inscrits)
+                    else:
+                        print("Entrée invalide, aucun changement appliqué.")
+                        continue  # Passer au match suivant
+
+                tournament.update()
+                print("Scores mis à jour avec succès.")
+
+                if all(match.result is not None for match in round_instance.matches):
+                    tournament.advance_to_next_round()
+
+                break
+
+        if not round_found:
+            print(f"ERREUR : Aucun round trouvé pour le numéro {round_number}")
+
+
+
+
+
 
 
 

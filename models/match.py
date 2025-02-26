@@ -9,33 +9,32 @@ class Match:
         self.player2 = player2
         self.round_number = round_number
         self.time = time
-        self.result = result
+        self.result = result if result else [(player1, 0), (player2, 0)]
 
     def __str__(self):
-        return f"Match : {self.player1.name}  {self.player1.surname} vs {self.player2.name} {self.player2.surname}\n{self.result}"
+        return f"Match : {self.player1['identifiant']} vs {self.player2['identifiant']} | Résultat : {self.result}"
 
-    def match_result(self):
-        if self.result == self.player1.identifiant:
-            self.player1.update_score(1)
-            return "win_p1"
+    def match_result(self, winner, players_inscrits):
+        if winner == self.player1:
+            self.result = [(self.player1, 1), (self.player2, 0)]
+            self.player1["score"] += 1
+        elif winner == self.player2:
+            self.result = [(self.player1, 0), (self.player2, 1)]
+            self.player2["score"] += 1
+        else:
+            self.result = [(self.player1, 0.5), (self.player2, 0.5)]
+            self.player1["score"] += 0.5
+            self.player2["score"] += 0.5
 
-        elif self.result == self.player2.identifiant:
-            self.player2.update_score(1)
-            return "win_p2"
-
-        elif self.result is None:
-            self.player1.update_score(0.5)
-            self.player2.update_score(0.5)
-            return "draw"
+        for player in players_inscrits:
+            if player["identifiant"] == self.player1["identifiant"]:
+                player["score"] = self.player1["score"]
+            elif player["identifiant"] == self.player2["identifiant"]:
+                player["score"] = self.player2["score"]
 
     def to_dict(self):
         return {
-            "player1": self.player1.name,
-            "player2": self.player2.name,
-            "round_number": self.round_number,
-            "time": self.time,
-            "result": str(self.result)
+            "players": self.result  # [(id_joueur1, score1), (id_joueur2, score2)]
         }
-
 
 print(Match.match_list)

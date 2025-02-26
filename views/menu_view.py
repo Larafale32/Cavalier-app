@@ -27,10 +27,40 @@ class ViewMenu:
         print("Gestion des joueurs, sélectionnez une action : (1,2,3 ou 4)")
         print("1) Ajouter un joueur"
               "\n2) Supprimer un joueur"
-              "\n3) Afficher la liste des joueurs"
-              "\n4) Quitter")
+              "\n3) Modifier les informations d'un joueur"
+              "\n4) Afficher la liste des joueurs"
+              "\n0) Quitter")
         choice = input("Votre choix : ")
         return choice
+
+    def change_tournaments(self):
+        print("Gestion des tournois, sélectionnez une action : (1,2,3 ou 4)")
+        print("1) Ajouter un tournoi"
+              "\n2) Supprimer un tournoi"
+              "\n3) Manager les tournois"
+              "\n4) Afficher la liste des tournois"
+              "\n0) Retour au menu principal")
+        choice = input("Votre choix : ")
+        return choice
+
+    def manage_tournaments(self):
+        while True:
+            print("Quelle action voulez vous effectuer ? : (1,2,3 ou 4) ")
+            print("1) Démarrer le tournoi"
+                  "\n2) Inscrire des joueurs au tournoi"
+                  "\n3) Afficher/modifier les scores"
+                  "\n0) Retour")
+            choice = input("Votre choix : ")
+            return choice
+
+    def change_info_player(self):
+        print("1) Modifier le nom"
+              "\n2) Modifier le prénom"
+              "\n3) Modifier la date de naissance"
+              "\n4) Modifier l'identifiant"
+              "\n5) Modifier le score"
+              "\n0) Quitter")
+        return input("Votre choix (entrer son numéro) :")
 
 
 

@@ -1,11 +1,17 @@
 
 class Round:
 
-    def __init__(self, tour):
+    def __init__(self, tour, state="en attente"):
         self.tour = tour
-        self.state = "En attente"
+        self.state = state
         self.matches = []
 
+    def to_dict(self):
+        return {
+            "tour": self.tour,
+            "state": self.state,
+            "matches": [match.to_dict() for match in self.matches]
+        }
 
     def add_match(self, match):
         self.matches.append(match)
@@ -16,29 +22,20 @@ class Round:
     def round_finish(self):
         self.state = "Terminé"
 
-
     def show_matches(self):
         return f"Round {self.tour} :" + "\n".join(str(match) for match in self.matches)
 
-    def results_matches(self):
-        for match in self.matches:
-            result = input("Qui à gagné ? : (1,2 ou draw")
+    def results_matches(self, results):
+        """Met à jour les résultats des matchs à partir d'une liste de résultats."""
+        for match, result in zip(self.matches, results):
             if result == "1":
                 match.result = match.player1.identifiant
-                match.match_result()
-
-            if result == "2":
+            elif result == "2":
                 match.result = match.player2.identifiant
-                match.match_result()
-
-            if result == "draw":
+            elif result == "draw":
                 match.result = None
-                match.match_result()
+            match.match_result()  # Met à jour le score des joueurs
 
-            else:
-                print("Entrée invalide, veuillez entrer '1', '2' ou 'draw'.")
-
-        return f"Résultats du round {self.tour} :" + "\n".join(str(match) for match in self.matches)
 
 Round1 = Round(1)
 Round1.show_matches()
