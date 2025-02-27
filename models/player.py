@@ -14,7 +14,6 @@ class Player :
         self.id = uuid.uuid4()
 
 
-
     def __str__(self):
         return (f"Player : {self.name} {self.surname}, Birth : {self.date_of_birth}, ID : {self.identifiant}, "
                 f"Score : {self.score}")
@@ -30,6 +29,13 @@ class Player :
             "id": str(self.id)
      }
 
+    @staticmethod
+    def get_player_by_id(player_id, all_players):
+        """Récupère un objet Player à partir de son identifiant."""
+        for player in all_players:
+            if player.identifiant == player_id:
+                return player
+        return None
 
     def update_score(self, points):
         self.score += points

@@ -1,7 +1,6 @@
 from views.tournament_view import ViewTournament
 from views.menu_view import ViewMenu
 from views.player_view import ViewPlayer
-from models.tournament import Tournois
 
 class ControllerTournament:
     def __init__(self):

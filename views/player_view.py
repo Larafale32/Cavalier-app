@@ -86,4 +86,3 @@ class ViewPlayer:
                 player.update_score(points)
                 print(f"Score du joueur, {player.name} mis à jour de {points} points")
 
-

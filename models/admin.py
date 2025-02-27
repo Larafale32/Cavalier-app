@@ -9,7 +9,7 @@ class Administrator:
 
 
     def __str__(self):
-        return f"ID : {self.id}, Nom : {self.nom}, Prenom : {self.prenom}"
+        return f"ID : {self.id}, Nom : {self.surname}, Prenom : {self.name}"
 
     def to_dict(self):
         return {

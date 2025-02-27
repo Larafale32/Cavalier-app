@@ -1,6 +1,8 @@
 import json
 import random
 import uuid
+import csv
+import os
 
 from models import match
 from models.player import Player, players_list
@@ -26,14 +28,6 @@ class Tournois:
 
     def __str__(self):
         return f"{self.nom} : se déroulera à {self.lieu}. Il débutera le {self.date_debut} et prendra fin le {self.date_fin} "
-
-    @staticmethod
-    def get_player_by_id(player_id, all_players):
-        """Récupère un objet Player à partir de son identifiant."""
-        for player in all_players:
-            if player.identifiant == player_id:
-                return player
-        return None
 
     def register_player(self, player_selected):
         for player in self.players_inscrits:
@@ -202,6 +196,25 @@ class Tournois:
                 tournament_list.append(p)
             return tournament_list
 
+    # def generate_report(self, tournament, round_instance):
+    #
+    #     file_exists = os.path.exists('tournament_report.csv')
+    #     with open('tournament_report.csv', mode='a', newline='') as file:
+    #         writer = csv.writer(file)
+    #
+    #         if not file_exists:
+    #             writer.writerow(['Tournament', 'Round', 'Player 1', 'Player 2', 'Score Player 1', 'Score Player 2'])
+    #
+    #         for match in round_instance.matches:
+    #             player1 = Player.get_player_by_id(match.players[0].identifiant, Player.load_json())
+    #             player2 = Player.get_player_by_id(match.players[1].identifiant, Player.load_json())
+    #             score1 = match.result[0][1] if match.result and len(match.result) > 0 else 'N/A'
+    #             score2 = match.result[1][1] if match.result and len(match.result) > 1 else 'N/A'
+    #
+    #         writer.writerow([tournament.nom, round_instance.tour, f"{player1.name} {player1.surname}",
+    #                          f"{player2.name} {player2.surname}", score1, score2])
+    #     print("Rapport généré dans 'tournament_report.csv'.")
+    #
 
 Tournois_Toulouse = Tournois("Toulouse Master1000", "Toulouse", "14/03/2025", "17/03/2025", 16, 5)
 Tournois_Lyon = Tournois("Lyon Master1000", "Lyon", "12/02/2025", "15/02/2025", 8, 4, "aucune", 0)

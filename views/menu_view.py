@@ -60,11 +60,18 @@ class ViewMenu:
               "\n4) Modifier l'identifiant"
               "\n5) Modifier le score"
               "\n0) Quitter")
-        return input("Votre choix (entrer son numéro) :")
+        choice = input("Votre choix (entrer son numéro) :")
+        return choice
 
+    def report_menu(self):
+            print("\nMenu Rapports :")
+            print("1) Liste de tous les joueurs (ordre alphabétique)")
+            print("2) Liste de tous les tournois")
+            print("3) Détails d'un tournoi")
+            print("4) Rounds et matchs d'un tournoi")
+            print("0) Quitter")
 
-
-
+            return input("Choisissez une option (numéro) : ")
 
 
 
