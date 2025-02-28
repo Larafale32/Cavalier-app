@@ -20,23 +20,17 @@ class ViewReport:
         for tournament in tournaments:
             print(f"- {tournament.nom} (date de début : {tournament.date_debut})")
 
-    def tournament_details(self):
-    
-        name = input("Entrer nom du tournois : " )
-        for tournament in Tournois.load_json():
-            if name == tournament.name:
-                print(f"\nDétails du tournoi {tournament.name} :")
-                print(f"Date : {tournament.date}")
-                print("Joueurs inscrits :")
-                for player in sorted(tournament.players, key=lambda p: p.name):
-                    print(f"- {player.name}")
+    def tournament_details(self, tournament_choice):
+        print(f"\nDétails du tournoi {tournament_choice.nom} :")
+        print(f"Date de début: {tournament_choice.date_debut}")
+        print(f"Date de fin: {tournament_choice.date_fin}")
+        print("Joueurs inscrits :")
+        for player in tournament_choice.players_inscrits:
+            print(f"- {player}")
 
-    def list_rounds_and_matches(self):
-        name = input("Entrer nom du tournois : " )
-        for tournament in Tournois.load_json():
-            if name == tournament.name:
-                print(f"\nRounds et matchs du tournoi {tournament.name} :")
-                for round_instance in tournament.rounds:
-                    print(f"\n{round_instance.name}")
-                    for match in round_instance.matches:
-                        print(f"  - {match.player1.name} vs {match.player2.name} | Résultat : {match.result}")
+    def list_rounds_and_matches(self, tournament_choice):
+        print(f"\nRounds et matchs du tournoi {tournament_choice.nom} :")
+        for round_instance in tournament_choice.rounds:
+            print(f"\n Round numéro : {round_instance.tour} statut : {round_instance.state}")
+            for match in round_instance.matches:
+                print(f"  - {match.player1} vs {match.player2} | Résultat : {match.result}")

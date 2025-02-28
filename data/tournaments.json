@@ -6,8 +6,8 @@
         "date_debut": "14/03/2025",
         "date_fin": "17/03/2025",
         "player_number": 6,
-        "round_total": "",
-        "description": 4,
+        "description": "",
+        "round_total": 4,
         "round_actuel": 0,
         "joueurs_inscrits": [],
         "rounds": []
@@ -19,41 +19,41 @@
         "date_debut": "12/02/2025",
         "date_fin": "15/02/2025",
         "player_number": 8,
-        "round_total": "aucune",
-        "description": 4,
-        "round_actuel": 2,
+        "description": "",
+        "round_total": 4,
+        "round_actuel": 4,
         "joueurs_inscrits": [
             [
-                4521,
-                1
-            ],
-            [
                 2451,
-                0
+                3.5
             ],
             [
                 1782,
-                0.5
+                2
+            ],
+            [
+                4521,
+                2
+            ],
+            [
+                8045,
+                2
             ],
             [
                 2001,
-                0.5
+                2.5
+            ],
+            [
+                9876,
+                1.5
+            ],
+            [
+                9812,
+                2.5
             ],
             [
                 7865,
                 0
-            ],
-            [
-                9812,
-                1
-            ],
-            [
-                8045,
-                0.5
-            ],
-            [
-                9876,
-                0.5
             ]
         ],
         "rounds": [
@@ -65,35 +65,17 @@
                         "players": [
                             [
                                 {
-                                    "identifiant": 4521,
-                                    "score": 1
+                                    "identifiant": 2451,
+                                    "score": 3.5
                                 },
                                 1
                             ],
-                            [
-                                {
-                                    "identifiant": 2451,
-                                    "score": 0
-                                },
-                                0
-                            ]
-                        ]
-                    },
-                    {
-                        "players": [
                             [
                                 {
                                     "identifiant": 1782,
-                                    "score": 0.5
+                                    "score": 2
                                 },
-                                0.5
-                            ],
-                            [
-                                {
-                                    "identifiant": 2001,
-                                    "score": 0.5
-                                },
-                                0.5
+                                0
                             ]
                         ]
                     },
@@ -101,15 +83,15 @@
                         "players": [
                             [
                                 {
-                                    "identifiant": 7865,
-                                    "score": 0
+                                    "identifiant": 4521,
+                                    "score": 2
                                 },
                                 0
                             ],
                             [
                                 {
-                                    "identifiant": 9812,
-                                    "score": 1
+                                    "identifiant": 8045,
+                                    "score": 2
                                 },
                                 1
                             ]
@@ -119,17 +101,35 @@
                         "players": [
                             [
                                 {
-                                    "identifiant": 8045,
-                                    "score": 0.5
+                                    "identifiant": 2001,
+                                    "score": 2.5
                                 },
                                 0.5
                             ],
                             [
                                 {
                                     "identifiant": 9876,
-                                    "score": 0.5
+                                    "score": 1.5
                                 },
                                 0.5
+                            ]
+                        ]
+                    },
+                    {
+                        "players": [
+                            [
+                                {
+                                    "identifiant": 9812,
+                                    "score": 2.5
+                                },
+                                1
+                            ],
+                            [
+                                {
+                                    "identifiant": 7865,
+                                    "score": 0
+                                },
+                                0
                             ]
                         ]
                     }
@@ -137,23 +137,101 @@
             },
             {
                 "tour": 2,
-                "state": "en attente",
+                "state": "Termin\u00e9",
                 "matches": [
                     {
                         "players": [
                             [
                                 {
-                                    "identifiant": 4521,
-                                    "score": 1
+                                    "identifiant": 2451,
+                                    "score": 3.5
+                                },
+                                1
+                            ],
+                            [
+                                {
+                                    "identifiant": 8045,
+                                    "score": 2
+                                },
+                                0
+                            ]
+                        ]
+                    },
+                    {
+                        "players": [
+                            [
+                                {
+                                    "identifiant": 9812,
+                                    "score": 2.5
+                                },
+                                0.5
+                            ],
+                            [
+                                {
+                                    "identifiant": 2001,
+                                    "score": 2.5
+                                },
+                                0.5
+                            ]
+                        ]
+                    },
+                    {
+                        "players": [
+                            [
+                                {
+                                    "identifiant": 9876,
+                                    "score": 1.5
                                 },
                                 0
                             ],
                             [
                                 {
-                                    "identifiant": 9812,
-                                    "score": 1
+                                    "identifiant": 1782,
+                                    "score": 2
+                                },
+                                1
+                            ]
+                        ]
+                    },
+                    {
+                        "players": [
+                            [
+                                {
+                                    "identifiant": 4521,
+                                    "score": 2
+                                },
+                                1
+                            ],
+                            [
+                                {
+                                    "identifiant": 7865,
+                                    "score": 0
                                 },
                                 0
+                            ]
+                        ]
+                    }
+                ]
+            },
+            {
+                "tour": 3,
+                "state": "Termin\u00e9",
+                "matches": [
+                    {
+                        "players": [
+                            [
+                                {
+                                    "identifiant": 2451,
+                                    "score": 3.5
+                                },
+                                0.5
+                            ],
+                            [
+                                {
+                                    "identifiant": 9812,
+                                    "score": 2.5
+                                },
+                                0.5
                             ]
                         ]
                     },
@@ -162,16 +240,16 @@
                             [
                                 {
                                     "identifiant": 1782,
-                                    "score": 0.5
+                                    "score": 2
                                 },
                                 0
                             ],
                             [
                                 {
-                                    "identifiant": 2001,
-                                    "score": 0.5
+                                    "identifiant": 4521,
+                                    "score": 2
                                 },
-                                0
+                                1
                             ]
                         ]
                     },
@@ -180,14 +258,56 @@
                             [
                                 {
                                     "identifiant": 8045,
-                                    "score": 0.5
+                                    "score": 2
                                 },
                                 0
                             ],
                             [
                                 {
+                                    "identifiant": 2001,
+                                    "score": 2.5
+                                },
+                                1
+                            ]
+                        ]
+                    },
+                    {
+                        "players": [
+                            [
+                                {
                                     "identifiant": 9876,
-                                    "score": 0.5
+                                    "score": 1.5
+                                },
+                                1
+                            ],
+                            [
+                                {
+                                    "identifiant": 7865,
+                                    "score": 0
+                                },
+                                0
+                            ]
+                        ]
+                    }
+                ]
+            },
+            {
+                "tour": 4,
+                "state": "en attente",
+                "matches": [
+                    {
+                        "players": [
+                            [
+                                {
+                                    "identifiant": 2451,
+                                    "score": 3.5
+                                },
+                                1
+                            ],
+                            [
+                                {
+                                    "identifiant": 4521,
+                                    "score": 2
                                 },
                                 0
                             ]
@@ -197,10 +317,46 @@
                         "players": [
                             [
                                 {
-                                    "identifiant": 2451,
-                                    "score": 0
+                                    "identifiant": 2001,
+                                    "score": 2.5
+                                },
+                                0.5
+                            ],
+                            [
+                                {
+                                    "identifiant": 9812,
+                                    "score": 2.5
+                                },
+                                0.5
+                            ]
+                        ]
+                    },
+                    {
+                        "players": [
+                            [
+                                {
+                                    "identifiant": 9876,
+                                    "score": 1.5
                                 },
                                 0
+                            ],
+                            [
+                                {
+                                    "identifiant": 1782,
+                                    "score": 2
+                                },
+                                1
+                            ]
+                        ]
+                    },
+                    {
+                        "players": [
+                            [
+                                {
+                                    "identifiant": 8045,
+                                    "score": 2
+                                },
+                                1
                             ],
                             [
                                 {

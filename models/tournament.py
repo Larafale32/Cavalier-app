@@ -12,15 +12,15 @@ from utils.constante import FILE_TOURNAMENT
 
 class Tournois:
     tournament_list = []
-    def __init__(self, nom, lieu, date_debut, date_fin, player_number, round_number, description="", round_actuel=0):
+    def __init__(self, nom, lieu, date_debut, date_fin, player_number, description="", round_number=4,  round_actuel=0):
             self.id = uuid.uuid4()
             self.nom = nom
             self.lieu = lieu
             self.date_debut = date_debut
             self.date_fin = date_fin
             self.player_number = player_number
-            self.round_actuel = round_actuel
             self.description = description
+            self.round_actuel = round_actuel
             self.round_number = round_number
             self.players_inscrits = []
             self.rounds = []
@@ -64,8 +64,8 @@ class Tournois:
             "date_debut": self.date_debut,
             "date_fin": self.date_fin,
             "player_number": self.player_number,
-            "round_total": self.round_number,
             "description": self.description,
+            "round_total": self.round_number,
             "round_actuel": self.round_actuel,
             "joueurs_inscrits": [[player["identifiant"], player["score"]] for player in self.players_inscrits],
             "rounds": [round.to_dict() for round in self.rounds]
@@ -74,13 +74,12 @@ class Tournois:
     def advance_to_next_round(self):
         if self.round_actuel == self.round_number:
             print("Tous les rounds ont été terminés. Fin du tournoi.")
+            print("Classement final :\n", self.get_classement())
             return
 
         self.rounds[-1].state = "Terminé"
-
         new_pairs = self.create_pairs()
         print("Nouveaux matchs pour le round suivant :", new_pairs)
-
         self.round_actuel += 1
         new_round = Round(self.round_actuel)
 
@@ -89,7 +88,6 @@ class Tournois:
             new_round.add_match(match)
 
         self.rounds.append(new_round)
-
         self.update()
 
         print(f"Round {self.round_actuel} ajouté avec {len(new_round.matches)} matchs.")

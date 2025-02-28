@@ -17,7 +17,7 @@ class ControllerTournament:
             elif choice == "2":
                 self.view_tournament.delete_tournament()
             elif choice == "3":
-                selected_tournament = self.view_tournament.tournament_choice()
+                selected_tournament = self.return_tounraments()
                 if selected_tournament:
                     self.current_tournament = selected_tournament
                     print(f"Vous gérez maintenant le tournoi {selected_tournament.nom}")
@@ -52,7 +52,7 @@ class ControllerTournament:
             else:
                 print("Veuillez entrer un choix valide (1 ou 2)")
 
-
-
+    def return_tounraments(self):
+        return self.view_tournament.tournament_choice()
 
 #gestion des joueurs / gestion des tournois => mettre à jour les scores / report = stat joueurs et tournois
