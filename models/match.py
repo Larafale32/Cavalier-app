@@ -9,7 +9,7 @@ class Match:
         self.player2 = player2
         self.round_number = round_number
         self.time = time
-        self.result = result if result else [(player1, 0), (player2, 0)]
+        self.result = result if result else [[player1, 0], [player2, 0]]
 
     def __str__(self):
         return f"Match : {self.player1['identifiant']} vs {self.player2['identifiant']} | Résultat : {self.result}"
@@ -34,7 +34,7 @@ class Match:
 
     def to_dict(self):
         return {
-            "players": self.result  # [(id_joueur1, score1), (id_joueur2, score2)]
+            "players": [[player[0]["identifiant"], player[1]] for player in self.result]
         }
 
 print(Match.match_list)
