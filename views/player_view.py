@@ -1,4 +1,6 @@
 import json
+import re
+from datetime import datetime
 from utils.constante import FILE_PLAYER
 from models.player import Player, players_list
 
@@ -26,17 +28,36 @@ class ViewPlayer:
                 print("Entrée invalide. Veuillez entrer un nombre entier.")
 
     def change_surname(self, player):
-        player.surname = input(f"Nouveau nom pour {player.name} {player.surname}: ")
-        player.update()
-        print("Nom mis à jour avec succès.")
+        while True:
+            player.surname = input(f"Nouveau nom pour {player.name} {player.surname}: ")
+            if player.surname is int():
+                print("Entrée invalide")
+            else:
+                player.update()
+                print("Nom mis à jour avec succès.")
+                break
 
     def change_name(self, player):
-        player.name = input(f"Nouveau prénom pour {player.name} {player.surname}: ")
-        player.update()
-        print("Prénom mis à jour avec succès.")
+        while True:
+            player.name = input(f"Nouveau prénom pour {player.name} {player.surname}: ")
+            if player.name is int():
+                print("Entrée invalide")
+            else:
+                player.update()
+                print("Prénom mis à jour avec succès.")
+                break
 
     def change_date_of_birth(self, player):
-        player.date_of_birth = input(f"Nouvelle date de naissance pour {player.name} {player.surname} (JJ/MM/YYYY): ")
+        while True:
+            player.date_of_birth = input(
+                f"Nouvelle date de naissance pour {player.name} {player.surname} (JJ/MM/AAAA) : ")
+            try:
+                # Vérifie si la date respecte le format JJ/MM/AAAA
+                datetime.strptime(player.date_of_birth, "%d/%m/%Y")
+                break  # Sort de la boucle si l'entrée est valide
+            except ValueError:
+                print("Format invalide ! Veuillez entrer une date au format JJ/MM/AAAA.")
+
         player.update()
         print("Date de naissance mise à jour avec succès.")
 
@@ -70,10 +91,35 @@ class ViewPlayer:
                     print("Aucun joueur trouvé avec cet identifiant.")
 
     def add_player(self):
-        surname = input("Nom du joueur : ")
-        name = input("Prénom du joueur : ")
-        date_of_birth = input("Date de naissance du joueur (JJ/MM/YYYY) : ")
-        identifiant = input("Identifiant du joueur")
+        while True:
+            surname = input("Nom du joueur : ")
+            if surname.isalpha():
+                break
+            else:
+                print("Entrée invalide")
+        while True:
+            name = input("Prénom du joueur : ")
+            if name.isalpha():
+                break
+            else:
+                print("Entrée invalide")
+        while True:
+            date_of_birth = input("Date de naissance du joueur (JJ/MM/YYYY) : ")
+            try:
+                # Vérifie si la date respecte le format JJ/MM/AAAA
+                datetime.strptime(date_of_birth, "%d/%m/%Y")
+                break  # Sort de la boucle si l'entrée est valide
+            except ValueError:
+                print("Format invalide ! Veuillez entrer une date au format JJ/MM/AAAA.")
+        while True:
+            identifiant = input("Entrez l'identifiant (AB12345) : ")
+
+            if re.match(r"^[A-Za-z]{2}\d{5}$", identifiant):
+                print(f"Identifiant valide : {identifiant}")
+                break
+            else:
+                print("Format invalide. Veuillez entrer 2 lettres suivies de 5 chiffres.")
+
         new_player = Player(surname, name, date_of_birth, identifiant)
         new_player.save()
         print("Joueur ajouté avec succès")

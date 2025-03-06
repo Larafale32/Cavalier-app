@@ -1,3 +1,6 @@
+import os
+import platform
+
 from controllers.controller_player import ControllerPlayer
 from controllers.controller_tournament import ControllerTournament
 from views.menu_view import ViewMenu
@@ -30,6 +33,20 @@ class Application:
 
                 else:
                     print("Option inconnue")
+
+    def clear_screen(self):
+        """
+        Efface l'écran du terminal en fonction du système d'exploitation.
+        Fonctionne sur Windows, MacOS et Linux.
+        """
+        # Détection du système d'exploitation
+        system = platform.system()
+
+        # Commande d'effacement d'écran selon l'OS
+        if system == 'Windows':
+            os.system('cls')
+        else:  # Pour Linux, MacOS et autres systèmes Unix-like
+            os.system('clear')
 
 App_main = Application()
 App_main.run()

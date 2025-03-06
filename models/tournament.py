@@ -72,25 +72,27 @@ class Tournois:
         }
 
     def advance_to_next_round(self):
+        print(self.round_actuel, self.round_number)
         if self.round_actuel == self.round_number:
+            self.rounds.state = "Terminé"
             print("Tous les rounds ont été terminés. Fin du tournoi.")
             print("Classement final :\n", self.get_classement())
-            return
+            return False
+        else:
+            self.rounds[-1].state = "Terminé"
+            new_pairs = self.create_pairs()
+            print("Nouveaux matchs pour le round suivant :", new_pairs)
+            self.round_actuel += 1
+            new_round = Round(self.round_actuel)
 
-        self.rounds[-1].state = "Terminé"
-        new_pairs = self.create_pairs()
-        print("Nouveaux matchs pour le round suivant :", new_pairs)
-        self.round_actuel += 1
-        new_round = Round(self.round_actuel)
+            for pair in new_pairs:
+                match = Match(pair[0], pair[1], round_number=self.round_actuel, time="15")
+                new_round.add_match(match)
 
-        for pair in new_pairs:
-            match = Match(pair[0], pair[1], round_number=self.round_actuel, time="15")
-            new_round.add_match(match)
-
-        self.rounds.append(new_round)
-        self.update()
-
-        print(f"Round {self.round_actuel} ajouté avec {len(new_round.matches)} matchs.")
+            self.rounds.append(new_round)
+            self.update()
+            print(f"Round {self.round_actuel} ajouté avec {len(new_round.matches)} matchs.")
+            return True
 
     def create_pairs(self):
         classement = self.get_classement()

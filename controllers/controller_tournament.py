@@ -1,3 +1,5 @@
+import keyboard
+
 from views.tournament_view import ViewTournament
 from views.menu_view import ViewMenu
 from views.player_view import ViewPlayer
@@ -43,10 +45,23 @@ class ControllerTournament:
             if choice == "1":
                 self.view_tournament.start_tournament(self.current_tournament)
             elif choice == "2":
-                player_selected = self.view_player.choose_players()
-                self.view_tournament.register_tournament(self.current_tournament, player_selected)
+                while len(self.current_tournament.players_inscrits) < self.current_tournament.player_number:
+                    print("\nSélectionnez un joueur à inscrire (ou entrez 0 pour arrêter) :")
+                    player_selected = self.view_player.choose_players()  # Sélection AVANT l'inscription
+
+                    if player_selected.identifiant == "0":
+                        print("Arrêt de l'inscription des joueurs.")
+                        break
+
+                    self.view_tournament.register_tournament(self.current_tournament,
+                                                             player_selected)  # Passe le joueur sélectionné
+
             elif choice == "3":
-                self.view_tournament.manage_score(self.current_tournament)
+                if not self.current_tournament.advance_to_next_round:
+                    print("Tous les rounds sont terminés, le tournoi est terminé")
+
+                else:
+                    self.view_tournament.manage_score(self.current_tournament)
             elif choice == "0":
                 break
             else:

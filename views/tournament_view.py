@@ -1,6 +1,5 @@
 from models.tournament import Tournois
-from models.player import Player
-from models.tournament import Tournois_Toulouse, Tournois_Lyon
+
 class ViewTournament:
     def show_tournaments(self):
         print("Liste des tournois :")
@@ -112,8 +111,7 @@ class ViewTournament:
                 if all(match.result is not None for match in round_instance.matches):
                     tournament.advance_to_next_round()
 
-                break  # Sortir de la boucle après avoir trouvé et modifié le round
-
+                break
 
 
 

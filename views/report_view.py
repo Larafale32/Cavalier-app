@@ -10,7 +10,7 @@ class ViewReport:
         players = sorted(players, key=lambda p: p.name)
         print("\nListe des joueurs (ordre alphabétique) :")
         for player in players:
-            print(f"- {player.name}")
+            print(f"- {player.name, player.surname}")
 
     def list_all_tournaments(self):
         tournaments = []
