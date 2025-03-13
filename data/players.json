@@ -1,6 +1,6 @@
 [
     {
-        "surname": "de Kertanguy",
+        "surname": "De Kertanguy",
         "name": "Arnaud",
         "date_of_birth": "30/04/2000",
         "identifiant": 2451,
@@ -78,6 +78,13 @@
         "identifiant": 7841,
         "score": 0,
         "id": "2d73eb60-7013-400f-bca9-a963c324ea09"
+    },
+    {
+        "surname": "De Kertanguy",
+        "name": "Aymeric",
+        "date_of_birth": "16/09/2003",
+        "identifiant": "DE23765",
+        "score": 0,
+        "id": "da6c560c-dd3c-4d1f-ad95-6eccc0ced9ee"
     }
-
 ]

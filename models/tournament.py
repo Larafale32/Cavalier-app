@@ -72,9 +72,8 @@ class Tournois:
         }
 
     def advance_to_next_round(self):
-        print(self.round_actuel, self.round_number)
         if self.round_actuel == self.round_number:
-            self.rounds.state = "Terminé"
+            self.rounds[-1].state = "Terminé"
             print("Tous les rounds ont été terminés. Fin du tournoi.")
             print("Classement final :\n", self.get_classement())
             return False
@@ -170,7 +169,9 @@ class Tournois:
         with open(FILE_TOURNAMENT, "r") as f:
             tournament_data = json.load(f)
             tournament_list = []
+
             for data in tournament_data:
+                # Création de l'objet Tournois
                 p = Tournois(
                     data['nom'],
                     data['lieu'],
@@ -182,19 +183,36 @@ class Tournois:
                     data['round_actuel'],
                 )
                 p.id = data['id']
-                p.players_inscrits = [{"identifiant": identifiant, "score": score} for identifiant, score in data["joueurs_inscrits"]]
+
+                # Chargement des joueurs inscrits
+                p.players_inscrits = [
+                    {"identifiant": identifiant, "score": score}
+                    for identifiant, score in data["joueurs_inscrits"]
+                ]
+
+                # Chargement des rounds
                 p.rounds = []
                 for round_data in data["rounds"]:
                     round_instance = Round(round_data["tour"], round_data["state"])
+
+                    # Chargement des matches
                     for match_data in round_data["matches"]:
-                        match = Match(match_data["players"][0][0], match_data["players"][1][0], round_data["tour"],
-                                      "15")
-                        match.result = match_data["players"]  # [(id_joueur1, score1), (id_joueur2, score2)]
-                        round_instance.add_match(match)
+
+                        if isinstance(match_data, list) and len(match_data) == 2:
+                            player1_id = match_data[0][0]  # ID du premier joueur
+                            player2_id = match_data[1][0]  # ID du deuxième joueur
+
+                            match = Match(player1_id, player2_id, round_data["tour"], "15")
+                            match.result = match_data  # [(id_joueur1, score1), (id_joueur2, score2)]
+                            round_instance.add_match(match)
+                        else:
+                            print("Erreur : Format inattendu pour match_data :", match_data)
 
                     p.rounds.append(round_instance)
+
                 tournament_list.append(p)
-            return tournament_list
+
+        return tournament_list
 
     # def generate_report(self, tournament, round_instance):
     #

@@ -30,7 +30,7 @@ class ViewPlayer:
     def change_surname(self, player):
         while True:
             player.surname = input(f"Nouveau nom pour {player.name} {player.surname}: ")
-            if player.surname is int():
+            if player.surname.isdigit():
                 print("Entrée invalide")
             else:
                 player.update()
@@ -40,7 +40,7 @@ class ViewPlayer:
     def change_name(self, player):
         while True:
             player.name = input(f"Nouveau prénom pour {player.name} {player.surname}: ")
-            if player.name is int():
+            if player.name.isdigit():
                 print("Entrée invalide")
             else:
                 player.update()
@@ -93,16 +93,16 @@ class ViewPlayer:
     def add_player(self):
         while True:
             surname = input("Nom du joueur : ")
-            if surname.isalpha():
-                break
-            else:
+            if surname.isdigit():
                 print("Entrée invalide")
+            else:
+                break
         while True:
             name = input("Prénom du joueur : ")
-            if name.isalpha():
-                break
-            else:
+            if name.isdigit():
                 print("Entrée invalide")
+            else:
+                break
         while True:
             date_of_birth = input("Date de naissance du joueur (JJ/MM/YYYY) : ")
             try:

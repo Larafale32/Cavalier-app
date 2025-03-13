@@ -89,8 +89,8 @@ class ViewTournament:
 
                     while True:
                         new_result = input(
-                            f"Entrez le résultat pour {match.player1["identifiant"]} vs {match.player2["identifiant"]} "
-                            f"(1: {match.player1["identifiant"]} gagne, 2: {match.player2["identifiant"]} gagne, 0: match nul) : ")
+                            f"1: {match.player1} gagne, 2: {match.player2} gagne, 0: match nul) : ")
+
 
                         if new_result == "1":
                             match.match_result(match.player1, tournament.players_inscrits)

@@ -79,7 +79,7 @@ class Player :
                     p = Player(player_data["surname"],
                                player_data["name"],
                                player_data["date_of_birth"],
-                               int(player_data["identifiant"]) if player_data["identifiant"] is not None else None,
+                               player_data["identifiant"]if player_data["identifiant"] is not None else None,
                                player_data["score"])
                     p.id = player_data["id"]
                     list.append(p)

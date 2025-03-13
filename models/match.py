@@ -33,8 +33,7 @@ class Match:
                 player["score"] = self.player2["score"]
 
     def to_dict(self):
-        return {
-            "players": [[player[0]["identifiant"], player[1]] for player in self.result]
-        }
+        return [[player if isinstance(player, int) else player["identifiant"], score] for player, score in self.result]
+
 
 print(Match.match_list)
