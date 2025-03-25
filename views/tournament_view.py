@@ -1,4 +1,5 @@
 from models.tournament import Tournois
+from datetime import datetime
 
 class ViewTournament:
     def show_tournaments(self):
@@ -12,12 +13,59 @@ class ViewTournament:
 
     def create_tournament(self):
         print("Création d'un tournois")
-        nom = input("Nom du tournoi : ")
-        lieu = input("Lieu du tournoi :")
-        date_debut = input("Date de début du tournoi (jj/mm/aaaa) : ")
-        date_fin = input("Date de fin du tournoi (jj/mm/aaaa) : ")
-        player_number = int(input("Nombre de joueurs pouvant y participer : "))
-        round_number = int(input("Nombre de rounds : "))
+        while True:
+            nom = input("Nom du tournoi : ").strip()
+            if not nom:
+                print("Veuillez entrer un nom de tournoi.")
+            else:
+                break
+
+        while True:
+            lieu = input("Lieu du tournoi :").strip()
+            if not lieu:
+                print("Veuillez entrer un lieu de tournoi.")
+            else:
+                break
+
+        while True:
+            date_debut = input("Date de début du tournoi (jj/mm/aaaa) : ")
+            try:
+                date_debut = datetime.strptime(date_debut, "%d/%m/%Y")
+                break
+            except ValueError:
+                print("Veuillez entrer une date de début valide (jj/mm/aaaa).")
+
+        while True:
+            date_fin = input("Date de fin du tournoi (jj/mm/aaaa) : ")
+            try:
+                date_fin = datetime.strptime(date_fin, "%d/%m/%Y")
+                if date_fin < date_debut:
+                    print("Erreur, la date de fin doit être supérieur à celle de début")
+                else:
+                    break
+            except ValueError:
+                print("Veuillez entrer une date de fin valide (jj/mm/aaaa).")
+
+        while True:
+            try:
+                player_number = int(input("Nombre de joueurs pouvant y participer : ").strip())
+                if player_number < 4:
+                    print("Le nombre de joueurs doit être au moins de 4.")
+                else:
+                    break
+            except ValueError:
+                print("Erreur : veuillez entrer un nombre valide.")
+
+        while True:
+            try:
+                round_number = int(input("Nombre de rounds : ").strip())
+                if round_number < 2:
+                    print("Le nombre de round soit être supérieur à 1")
+                else:
+                    break
+            except ValueError:
+                print("Erreur, veuillez entrer un nombre valide.")
+
         description = input("Description du tournoi : ")
         new_tournament = Tournois(nom, lieu, date_debut, date_fin, player_number, round_number, description)
         new_tournament.save()

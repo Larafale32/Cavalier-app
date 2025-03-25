@@ -25,17 +25,18 @@ class Application:
                 choice = self.view_menu.display_menu()
 
                 if choice == "1":
+                    Utilitaire.clear_screen()
                     self.controller_player.manage_players()
-                    Utilitaire.clear_screen()  # Efface après l'action
                 elif choice == "2":
+                    Utilitaire.clear_screen()
                     self.controller_tournament.change_tournaments()
-                    Utilitaire.clear_screen()
                 elif choice == "3":
+                    Utilitaire.clear_screen()
                     self.controller_report.display_report()
-                    Utilitaire.clear_screen()
                 else:
-                    print("Option inconnue")
                     Utilitaire.clear_screen()
+                    print("Option inconnue")
+
 
 
 

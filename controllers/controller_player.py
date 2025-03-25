@@ -1,24 +1,31 @@
 from views.player_view import ViewPlayer
 from views.menu_view import ViewMenu
+from utils.utils import Utilitaire
 
 class ControllerPlayer:
     def __init__(self):
         self.view_player = ViewPlayer()
         self.view_menu = ViewMenu()
+        self.utilitaire = Utilitaire()
 
 
     def manage_players(self):
         while True:
             choice = self.view_menu.manage_players()
             if choice == "1":
+                self.utilitaire.clear_screen()# !!
                 self.view_player.add_player()
             elif choice == "2":
+                self.utilitaire.clear_screen()# !!
                 self.view_player.delete_player()
             elif choice == "3":
+                self.utilitaire.clear_screen()# !!
                 self.change_info_player()
             elif choice == "4":
+                self.utilitaire.clear_screen() # !!
                 self.view_player.show_players()
             elif choice =="0":
+                self.utilitaire.clear_screen()
                 break
             else:
                 print("Choix invalide, réessayez.")

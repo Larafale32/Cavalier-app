@@ -10,8 +10,9 @@ class ViewReport:
             players.append(player)
         players = sorted(players, key=lambda p: p.surname)
         print("\nListe des joueurs (ordre alphabétique) :")
-        for player in players:
-            print(f"- {player.surname, player.name}")
+        table_data = [[player.surname, player.name] for player in players]
+        headers = ["Surname", "Name"]
+        print(tabulate(table_data, headers=headers))
 
     def list_all_tournaments(self):
         tournaments = []
