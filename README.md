@@ -60,22 +60,28 @@ L'application fonctionne en mode console et utilise des fichiers JSON pour stock
    ```bash
    git clone <URL_DU_REPO>
    cd <NOM_DU_REPO>
+   
 2- **Installer les dépendances** :
   pip install -r requirements.txt
 
 
-### Utilisation
+## Utilisation
 
-**Lancer le programme**
+### Lancer le programme  
+
 Dans le terminal, exécuter la commande suivante :
-  python main.py
+
+ ``` python main.py```
   
-**Navigation dans l'application**  
-  Connexion:   
+### Navigation dans l'application
+
+  ***Connexion*** :   
+  
     "Entrer votre code administrateur : "  
     Code administrateur : 2312  
     
-  Menu :   
+ ***Menu*** :   
+  
     Veuillez sélectionner une action (1,2,3 ou 4)  
     1) Gestion des joueurs  
     2) Gestion des tournois  
@@ -83,7 +89,7 @@ Dans le terminal, exécuter la commande suivante :
     4) Quitter  
     
 
-### Structure du projet
+## Structure du projet
 
 /cavalier-app 
 
