@@ -1,6 +1,7 @@
 from models.tournament import Tournois
 from datetime import datetime
 
+
 class ViewTournament:
     def show_tournaments(self):
         print("Liste des tournois :")
@@ -9,7 +10,6 @@ class ViewTournament:
         for tournament in tournaments:
             print(f"{count}: --> {tournament.nom}")
             count += 1
-
 
     def create_tournament(self):
         print("Création d'un tournois")
@@ -48,7 +48,9 @@ class ViewTournament:
 
         while True:
             try:
-                player_number = int(input("Nombre de joueurs pouvant y participer : ").strip())
+                player_number = int(
+                    input("Nombre de joueurs pouvant y participer : ").strip()
+                )
                 if player_number < 4:
                     print("Le nombre de joueurs doit être au moins de 4.")
                 else:
@@ -67,7 +69,9 @@ class ViewTournament:
                 print("Erreur, veuillez entrer un nombre valide.")
 
         description = input("Description du tournoi : ")
-        new_tournament = Tournois(nom, lieu, date_debut, date_fin, player_number, round_number, description)
+        new_tournament = Tournois(
+            nom, lieu, date_debut, date_fin, player_number, round_number, description
+        )
         new_tournament.save()
         print("Tournois créé avec succès.")
 
@@ -81,7 +85,6 @@ class ViewTournament:
                 print(f"Tournois {tournament_name} supprimé avec succès.")
                 return
         print(f"Tournois {tournament_name} introuvable.")
-
 
     def tournament_choice(self):
         self.show_tournaments()  # Afficher la liste des tournois
@@ -101,7 +104,6 @@ class ViewTournament:
                     print("Numéro de tournoi invalide, réessayez.")
             except ValueError:
                 print("Entrée invalide. Veuillez entrer un nombre.")
-
 
     def start_tournament(self, tournament):
         if int(tournament.round_actuel) == 0:
@@ -136,18 +138,24 @@ class ViewTournament:
                 print(f"Modification des scores :")
 
                 for match in round_instance.matches:
-                    print(f"{match.player1} vs {match.player2} - Résultat actuel: {match.result}")
+                    print(
+                        f"{match.player1} vs {match.player2} - Résultat actuel: {match.result}"
+                    )
 
                     while True:
                         new_result = input(
-                            f"1: {match.player1} gagne, 2: {match.player2} gagne, 0: match nul) : ")
-
+                            f"1: {match.player1} gagne, 2: {match.player2} gagne, 0: match nul) : "
+                        )
 
                         if new_result == "1":
-                            match.match_result(match.player1, tournament.players_inscrits)
+                            match.match_result(
+                                match.player1, tournament.players_inscrits
+                            )
                             break
                         elif new_result == "2":
-                            match.match_result(match.player2, tournament.players_inscrits)
+                            match.match_result(
+                                match.player2, tournament.players_inscrits
+                            )
                             break
                         elif new_result == "0":
                             match.match_result(None, tournament.players_inscrits)
@@ -163,17 +171,3 @@ class ViewTournament:
                     tournament.advance_to_next_round()
 
                 break
-
-
-
-
-
-
-
-
-
-
-
-
-
-

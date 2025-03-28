@@ -1,6 +1,3 @@
-
-from utils.constante import FILE_PLAYER
-
 class Match:
     match_list = []
 
@@ -12,7 +9,9 @@ class Match:
         self.result = result if result else [[player1, 0], [player2, 0]]
 
     def __str__(self):
-        return f"Match : {self.player1[0]} vs {self.player2[0]} | Résultat : {self.result}"
+        return (
+            f"Match : {self.player1[0]} vs {self.player2[0]} | Résultat : {self.result}"
+        )
 
     def match_result(self, winner, players_inscrits):
 
@@ -39,7 +38,10 @@ class Match:
                 player[1] += score_p2  # Ajouter le score au joueur 2
 
     def to_dict(self):
-        return [[player if isinstance(player, int) else player[0], score] for player, score in self.result]
+        return [
+            [player if isinstance(player, int) else player[0], score]
+            for player, score in self.result
+        ]
 
 
 print(Match.match_list)

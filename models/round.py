@@ -1,4 +1,3 @@
-
 class Round:
 
     def __init__(self, tour, state="en attente"):
@@ -10,7 +9,7 @@ class Round:
         return {
             "tour": self.tour,
             "state": self.state,
-            "matches": [match.to_dict() for match in self.matches]
+            "matches": [match.to_dict() for match in self.matches],
         }
 
     def add_match(self, match):
@@ -35,7 +34,3 @@ class Round:
             elif result == "draw":
                 match.result = None
             match.match_result()  # Met à jour le score des joueurs
-
-
-Round1 = Round(1)
-Round1.show_matches()

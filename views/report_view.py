@@ -1,7 +1,7 @@
 from models.tournament import Tournois
 from models.player import Player
 from tabulate import tabulate
-from views.tournament_view import ViewTournament
+
 
 class ViewReport:
     def list_all_players(self):
@@ -20,8 +20,9 @@ class ViewReport:
             tournaments.append(tournament)
         print("\nListe des tournois :")
         for tournament in tournaments:
-             print(f"- {tournament.nom} (date de début : {tournament.date_debut} status : {tournament.state})")
-
+            print(
+                f"- {tournament.nom} (date de début : {tournament.date_debut} status : {tournament.state})"
+            )
 
     def tournament_details(self, tournament_choice):
         print(f"\nDétails du tournoi {tournament_choice.nom} :")
@@ -35,7 +36,9 @@ class ViewReport:
     def list_rounds_and_matches(self, tournament_choice):
         print(f"\nRounds et matchs du tournoi {tournament_choice.nom} :")
         for round_instance in tournament_choice.rounds:
-            print(f"\nRound numéro : {round_instance.tour} | Statut : {round_instance.state}")
+            print(
+                f"\nRound numéro : {round_instance.tour} | Statut : {round_instance.state}"
+            )
             table_data = [
                 [match.player1, match.player2, match.result]
                 for match in round_instance.matches

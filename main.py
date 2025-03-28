@@ -1,4 +1,3 @@
-
 from controllers.controller_player import ControllerPlayer
 from controllers.controller_tournament import ControllerTournament
 from views.menu_view import ViewMenu
@@ -7,6 +6,7 @@ from views.tournament_view import ViewTournament
 from controllers.controller_menu import ControllerMenu
 from controllers.controller_report import ControllerReport
 from utils.utils import Utilitaire
+
 
 class Application:
     def __init__(self):
@@ -17,7 +17,9 @@ class Application:
         self.controller_menu = ControllerMenu()
         self.controller_player = ControllerPlayer()
         self.controller_tournament = ControllerTournament()
-        self.controller_report = ControllerReport()  # à ajouter dans le main.py pour l'appel à la fonction de génération du report.'
+        self.controller_report = (
+            ControllerReport()
+        )  # à ajouter dans le main.py pour l'appel à la fonction de génération du report.'
 
     def run(self):
         if self.controller_menu.authentification():
@@ -38,10 +40,5 @@ class Application:
                     print("Option inconnue")
 
 
-
-
 App_main = Application()
 App_main.run()
-
-#rajouter des numéros pour les tournois
-#générer le report avec le report, avoir le résultat stocké dans un fichier html
