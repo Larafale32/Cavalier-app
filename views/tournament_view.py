@@ -96,6 +96,7 @@ class ViewTournament:
                     selected_tournament = tournaments[selection - 1]
                     print(selected_tournament.nom)
                     return selected_tournament
+
                 else:
                     print("Numéro de tournoi invalide, réessayez.")
             except ValueError:
@@ -107,6 +108,7 @@ class ViewTournament:
             while True:
                 start = input("Voulez vous démarré le tournoi ? (OUI/NON)")
                 if start.upper() == "OUI":
+                    tournament.state = "Commencé"
                     tournament.start_tournament()
                     break
                 elif start.upper() == "NON":
@@ -120,6 +122,7 @@ class ViewTournament:
     def register_tournament(self, tournament, player_selected):
         while len(tournament.players_inscrits) < tournament.player_number:
             tournament.register_player(player_selected)
+            print(tournament.players_inscrits)
             print(tournament.show_players_inscrits())
             break
         else:

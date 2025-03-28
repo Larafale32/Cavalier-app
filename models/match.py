@@ -12,28 +12,34 @@ class Match:
         self.result = result if result else [[player1, 0], [player2, 0]]
 
     def __str__(self):
-        return f"Match : {self.player1['identifiant']} vs {self.player2['identifiant']} | Résultat : {self.result}"
+        return f"Match : {self.player1[0]} vs {self.player2[0]} | Résultat : {self.result}"
 
     def match_result(self, winner, players_inscrits):
-        if winner == self.player1:
-            self.result = [(self.player1, 1), (self.player2, 0)]
-            self.player1["score"] += 1
-        elif winner == self.player2:
-            self.result = [(self.player1, 0), (self.player2, 1)]
-            self.player2["score"] += 1
-        else:
-            self.result = [(self.player1, 0.5), (self.player2, 0.5)]
-            self.player1["score"] += 0.5
-            self.player2["score"] += 0.5
 
+        # Récupérer les identifiants des joueurs
+        player1_id = self.player1[0]  # self.player1 est une liste [identifiant, score]
+        player2_id = self.player2[0]
+
+        # Déterminer les scores en fonction du gagnant
+        if winner == self.player1:
+            self.result = [(player1_id, 1), (player2_id, 0)]
+            score_p1, score_p2 = 1, 0
+        elif winner == self.player2:
+            self.result = [(player1_id, 0), (player2_id, 1)]
+            score_p1, score_p2 = 0, 1
+        else:  # Match nul
+            self.result = [(player1_id, 0.5), (player2_id, 0.5)]
+            score_p1, score_p2 = 0.5, 0.5
+
+        # Mettre à jour les scores des joueurs dans players_inscrits
         for player in players_inscrits:
-            if player["identifiant"] == self.player1["identifiant"]:
-                player["score"] = self.player1["score"]
-            elif player["identifiant"] == self.player2["identifiant"]:
-                player["score"] = self.player2["score"]
+            if player[0] == player1_id:
+                player[1] += score_p1  # Ajouter le score au joueur 1
+            elif player[0] == player2_id:
+                player[1] += score_p2  # Ajouter le score au joueur 2
 
     def to_dict(self):
-        return [[player if isinstance(player, int) else player["identifiant"], score] for player, score in self.result]
+        return [[player if isinstance(player, int) else player[0], score] for player, score in self.result]
 
 
 print(Match.match_list)

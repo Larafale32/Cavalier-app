@@ -20,12 +20,14 @@ class ViewReport:
             tournaments.append(tournament)
         print("\nListe des tournois :")
         for tournament in tournaments:
-            print(f"- {tournament.nom} (date de début : {tournament.date_debut})")
+             print(f"- {tournament.nom} (date de début : {tournament.date_debut} status : {tournament.state})")
+
 
     def tournament_details(self, tournament_choice):
         print(f"\nDétails du tournoi {tournament_choice.nom} :")
         print(f"Date de début: {tournament_choice.date_debut}")
         print(f"Date de fin: {tournament_choice.date_fin}")
+        print(f"Status : {tournament_choice.state}")
         print("Joueurs inscrits :")
         for player in tournament_choice.players_inscrits:
             print(f"- {player}")

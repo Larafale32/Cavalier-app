@@ -1,8 +1,7 @@
 import json
 import random
 import uuid
-import csv
-import os
+from datetime import datetime
 
 from models import match
 from models.player import Player, players_list
@@ -12,13 +11,14 @@ from utils.constante import FILE_TOURNAMENT
 
 class Tournois:
     tournament_list = []
-    def __init__(self, nom, lieu, date_debut, date_fin, player_number, description="", round_number=4,  round_actuel=0):
+    def __init__(self, nom, lieu, date_debut, date_fin, player_number, state="en attente", description="",  round_number=4, round_actuel=0):
             self.id = uuid.uuid4()
             self.nom = nom
             self.lieu = lieu
             self.date_debut = date_debut
             self.date_fin = date_fin
             self.player_number = player_number
+            self.state = state
             self.description = description
             self.round_actuel = round_actuel
             self.round_number = round_number
@@ -30,16 +30,17 @@ class Tournois:
         return f"{self.nom} : se déroulera à {self.lieu}. Il débutera le {self.date_debut} et prendra fin le {self.date_fin} "
 
     def register_player(self, player_selected):
+        # Vérification si le joueur est déjà inscrit
         for player in self.players_inscrits:
-            if int(player["identifiant"]) == int(player_selected.identifiant):
-                print(f"Le joueur avec l'ID {player['identifiant']} est déjà inscrit à ce tournoi.")
+            if int(player[0]) == int(player_selected.identifiant):  # player[0] est l'ID du joueur
+                print(f"Le joueur avec l'ID {player[0]} est déjà inscrit à ce tournoi.")
                 return
 
-        # Recherche du joueur dans la liste
+        # Recherche du joueur dans la liste des joueurs existants
         for player in Player.load_json():
             if int(player.identifiant) == int(player_selected.identifiant):
-                player_data = {"identifiant": player.identifiant,
-                               "score": player.score}  # Stocker uniquement les infos nécessaires
+                # Stockage des données du joueur dans une sous-liste [identifiant, score]
+                player_data = [player.identifiant, player.score]
                 self.players_inscrits.append(player_data)
                 print(f"Le joueur avec l'ID {player.identifiant} a été inscrit avec succès.")
                 self.update()
@@ -64,16 +65,19 @@ class Tournois:
             "date_debut": self.date_debut,
             "date_fin": self.date_fin,
             "player_number": self.player_number,
+            "status": self.state,
             "description": self.description,
             "round_total": self.round_number,
             "round_actuel": self.round_actuel,
-            "joueurs_inscrits": [[player["identifiant"], player["score"]] for player in self.players_inscrits],
+            "joueurs_inscrits": self.players_inscrits,
             "rounds": [round.to_dict() for round in self.rounds]
         }
 
     def advance_to_next_round(self):
         if self.round_actuel == self.round_number:
             self.rounds[-1].state = "Terminé"
+            self.state = "Terminé"
+            self.update()
             print("Tous les rounds ont été terminés. Fin du tournoi.")
             print("Classement final :\n", self.get_classement())
             return False
@@ -101,13 +105,14 @@ class Tournois:
                 pairs.append((classement[i], classement[i+1]))
         return pairs
 
-
     def get_classement(self):
-        classement = sorted(self.players_inscrits, key=lambda player: player["score"], reverse=True)
+        # Trier les joueurs en fonction de leur score (player[1] est le score)
+        classement = sorted(self.players_inscrits, key=lambda player: player[1], reverse=True)
 
         print("\nClassement des joueurs :")
         for i, player in enumerate(classement, start=1):
-            print(f"{i}. Joueur ID {player['identifiant']} - Score: {player['score']}")
+            # player[0] est l'identifiant, player[1] est le score
+            print(f"{i}. Joueur ID {player[0]} - Score: {player[1]}")
         return classement
 
     def start_tournament(self):
@@ -115,9 +120,11 @@ class Tournois:
             print("Erreur, le nombre de joueurs inscrits ne permet pas de débuter le tournoi.")
         else:
             print("Début du tournoi")
+            self.state = "en cours"
             random.shuffle(self.players_inscrits)
             round_instance = Round(int(self.round_actuel + 1))
             self.round_actuel += 1
+
 
             for i in range(0, len(self.players_inscrits), 2):
                 if i + 1 < len(self.players_inscrits):
@@ -133,13 +140,48 @@ class Tournois:
             print(round_instance.show_matches())
 
     def save(self):
-
+        # Charger les tournois existants
         list_tournois = self.load_json()
-        list_tournois.append(self)
-        tournament_data = [tournois.to_dict() for tournois in list_tournois]
 
+        # Préparer les données du tournoi à sauvegarder
+        tournament_data = {
+            "id": str(self.id),
+            "nom": self.nom,
+            "lieu": self.lieu,
+            "date_debut": self.date_debut.strftime("%d/%m/%Y"),  # Conversion de la date en string
+            "date_fin": self.date_fin.strftime("%d/%m/%Y"),  # Conversion de la date en string
+            "player_number": self.player_number,
+            "status": self.state,
+            "description": self.description,
+            "round_total": self.round_number,
+            "round_actuel": self.round_actuel,
+            "joueurs_inscrits": self.players_inscrits,
+            "rounds": [
+                {
+                    "tour": round_instance.tour,
+                    "state": round_instance.state,
+                    "matches": [
+                        [
+                            (match.player1_id, match.score1),
+                            (match.player2_id, match.score2)
+                        ]
+                        for match in round_instance.matches
+                    ]
+                }
+                for round_instance in self.rounds
+            ],
+        }
+
+        # Si la liste des tournois est vide, initialiser une liste vide
+        if list_tournois is None:
+            list_tournois = []  # Si aucun tournoi existant, initialiser une liste vide
+
+        # Ajouter le tournoi actuel à la liste
+        list_tournois.append(tournament_data)
+
+        # Sauvegarder la liste complète des tournois
         with open(FILE_TOURNAMENT, "w") as f:
-            json.dump(tournament_data, f, indent=4)
+            json.dump(list_tournois, f, indent=4)  # Sauvegarder la liste des tournois
 
     def update(self):
         try:
@@ -152,7 +194,8 @@ class Tournois:
 
         for tournoi in list_tournois:
             if tournoi.nom == self.nom:  # Si c'est le tournoi à mettre à jour
-                nouveau_list_tournois.append(self)  # Ajoute la version mise à jour
+                # Mettre à jour les informations du tournoi avec la version mise à jour
+                nouveau_list_tournois.append(self)
                 tournoi_trouve = True
             else:
                 nouveau_list_tournois.append(tournoi)  # Garde les autres inchangés
@@ -160,9 +203,21 @@ class Tournois:
         if not tournoi_trouve:  # Si le tournoi n'existe pas encore, on l'ajoute
             nouveau_list_tournois.append(self)
 
+        # Convertir tous les objets datetime en chaîne de caractères avant de les sauvegarder
+        list_to_save = []
+        for tournoi in nouveau_list_tournois:
+            tournoi_dict = tournoi.to_dict()  # On suppose que cette méthode convertit l'objet en dictionnaire
+            # Conversion des dates en chaînes de caractères si ce n'est pas déjà fait
+            tournoi_dict["date_debut"] = tournoi_dict["date_debut"].strftime("%d/%m/%Y") if isinstance(
+                tournoi_dict["date_debut"], datetime) else tournoi_dict["date_debut"]
+            tournoi_dict["date_fin"] = tournoi_dict["date_fin"].strftime("%d/%m/%Y") if isinstance(
+                tournoi_dict["date_fin"], datetime) else tournoi_dict["date_fin"]
+
+            list_to_save.append(tournoi_dict)
+
         # Sauvegarde des données mises à jour
         with open(FILE_TOURNAMENT, "w") as f:
-            json.dump([t.to_dict() for t in nouveau_list_tournois], f, indent=4)
+            json.dump(list_to_save, f, indent=4)
 
     @staticmethod
     def load_json():
@@ -171,13 +226,17 @@ class Tournois:
             tournament_list = []
 
             for data in tournament_data:
-                # Création de l'objet Tournois
+
+                data['date_debut'] = datetime.strptime(data['date_debut'], "%d/%m/%Y")
+                data['date_fin'] = datetime.strptime(data['date_fin'], "%d/%m/%Y")
+
                 p = Tournois(
                     data['nom'],
                     data['lieu'],
                     data['date_debut'],
                     data['date_fin'],
                     data['player_number'],
+                    data['status'],
                     data['description'],
                     data['round_total'],
                     data['round_actuel'],
@@ -186,8 +245,8 @@ class Tournois:
 
                 # Chargement des joueurs inscrits
                 p.players_inscrits = [
-                    {"identifiant": identifiant, "score": score}
-                    for identifiant, score in data["joueurs_inscrits"]
+                    [player[0], player[1]]  # On garde le format de liste [identifiant, score]
+                    for player in data["joueurs_inscrits"]
                 ]
 
                 # Chargement des rounds
@@ -199,10 +258,10 @@ class Tournois:
                     for match_data in round_data["matches"]:
 
                         if isinstance(match_data, list) and len(match_data) == 2:
-                            player1_id = match_data[0][0]  # ID du premier joueur
-                            player2_id = match_data[1][0]  # ID du deuxième joueur
+                            player1 = match_data[0]  # Déjà sous forme [id, score]
+                            player2 = match_data[1]  # Déjà sous forme [id, score]
 
-                            match = Match(player1_id, player2_id, round_data["tour"], "15")
+                            match = Match(player1, player2, round_data["tour"], "15")
                             match.result = match_data  # [(id_joueur1, score1), (id_joueur2, score2)]
                             round_instance.add_match(match)
                         else:
@@ -236,7 +295,6 @@ class Tournois:
 
 Tournois_Toulouse = Tournois("Toulouse Master1000", "Toulouse", "14/03/2025", "17/03/2025", 16, 5)
 Tournois_Lyon = Tournois("Lyon Master1000", "Lyon", "12/02/2025", "15/02/2025", 8, 4, "aucune", 0)
-
 
 #print(Tournois_Toulouse.players_inscrits)
 #Tournois_Toulouse.add_player(players_list)
