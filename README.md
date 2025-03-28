@@ -2,7 +2,7 @@
 
 ## Description
 
-Ce programme permet d'organiser et de gérer des tournois d'échecs en mode hors ligne. Il permet l'ajout de joueurs, la gestion des tournois, l'enregistrement des matchs et la génération automatique des paires selon un système de classement basé sur les scores.
+Ce programme permet d'organiser et de gérer des tournois d'échecs en mode hors ligne. Il permet l'ajout de joueurs et de tournois ainsi que la gestion de ces derniers. Chaque joueur, tournois, round et matche est sauvegardé dans des fichiers JSON. Les paires sont générées de manière automatique selon un système de classement basé sur le scores des joueurs. 
 
 L'application fonctionne en mode console et utilise des fichiers JSON pour stocker les données des joueurs et des tournois.
 
