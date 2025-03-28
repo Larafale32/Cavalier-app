@@ -70,42 +70,35 @@ L'application fonctionne en mode console et utilise des fichiers JSON pour stock
 Dans le terminal, exécuter la commande suivante :
   python main.py
   
-**Navigation dans l'application**
-  Connexion: 
-    "Entrer votre code administrateur : "
-    Code administrateur : 2312
+**Navigation dans l'application**  
+  Connexion:   
+    "Entrer votre code administrateur : "  
+    Code administrateur : 2312  
     
-  Menu : 
-    Veuillez sélectionner une action (1,2,3 ou 4)
-    1) Gestion des joueurs
-    2) Gestion des tournois
-    3) Report (stat : joueurs/tournois)
-    4) Quitter
+  Menu :   
+    Veuillez sélectionner une action (1,2,3 ou 4)  
+    1) Gestion des joueurs  
+    2) Gestion des tournois  
+    3) Report (stat : joueurs/tournois)  
+    4) Quitter  
     
 
 ### Structure du projet
 
 /cavalier-app 
 
-    ```/data                 # Contient les fichiers JSON pour la persistance des données```
-    
-    ```/models               # Définit les classes des joueurs, tournois, tours, matchs```
-  
-    
-     ```/views                # Gère l'affichage et l'interaction avec l'utilisateur```
-     
-    ```/controllers          # Contient la logique du programme et les actions utilisateurs```
-    
-    ```requirements.txt      # Liste des dépendances```
-    
-    ```main.py               # Point d'entrée du programme```
-    
-    ```README.md             # Documentation du projet```
+    ``` /data                 # Contient les fichiers JSON pour la persistance des données
+        /models               # Définit les classes des joueurs, tournois, tours, matchs   
+        /views                # Gère l'affichage et l'interaction avec l'utilisateur
+        /controllers          # Contient la logique du programme et les actions utilisateurs
+        /requirements.txt      # Liste des dépendances
+        /main.py               # Point d'entrée du programme
+        /README.md             # Documentation du projet```
 
 
 ## Améliorations futures
 
-Ajout d'une interface graphique.
+Ajout d'une interface graphique.  
 Exportation des rapports en format HTML/PDF.
 
 
