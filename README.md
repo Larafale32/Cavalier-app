@@ -60,34 +60,40 @@ L'application fonctionne en mode console et utilise des fichiers JSON pour stock
    ```bash
    git clone <URL_DU_REPO>
    cd <NOM_DU_REPO>
-Installer les dépendances :
-pip install -r requirements.txt
+2- **Installer les dépendances** :
+  pip install -r requirements.txt
 
-Vérifier la conformité du code avec Flake8 :
-flake8 --max-line-length=119 --format=html --htmldir=flake8_rapport
-Utilisation
 
-Lancer le programme
+### Utilisation
+
+**Lancer le programme**
 Dans le terminal, exécuter la commande suivante :
+  python main.py
+  
+**Navigation dans l'application**
+  Connexion: 
+    "Entrer votre code administrateur : "
+    Code administrateur : 2312
+    
+  Menu : 
+    Veuillez sélectionner une action (1,2,3 ou 4)
+    1) Gestion des joueurs
+    2) Gestion des tournois
+    3) Report (stat : joueurs/tournois)
+    4) Quitter
+    
 
-python main.py
-Navigation dans l'application
-Une fois le programme lancé, un menu s'affichera permettant :
+### Structure du projet
 
-D'ajouter des joueurs.
-De créer et gérer des tournois.
-De consulter les résultats et générer des rapports.
-Structure du projet
-
-/gestion-tournois-echecs
-│-- /data                 # Contient les fichiers JSON pour la persistance des données
-│-- /models               # Définit les classes des joueurs, tournois, tours, matchs
-│-- /views                # Gère l'affichage et l'interaction avec l'utilisateur
-│-- /controllers          # Contient la logique du programme et les actions utilisateurs
-│-- requirements.txt      # Liste des dépendances
-│-- main.py               # Point d'entrée du programme
-│-- README.md             # Documentation du projet
-|-- flake8_rapport/       # Rapport de conformité PEP 8 (généré avec Flake8)
+/cavalier-app
+  /data                 # Contient les fichiers JSON pour la persistance des données
+  /models               # Définit les classes des joueurs, tournois, tours, matchs
+  /views                # Gère l'affichage et l'interaction avec l'utilisateur
+  /controllers          # Contient la logique du programme et les actions utilisateurs
+  requirements.txt      # Liste des dépendances
+  main.py               # Point d'entrée du programme
+  README.md             # Documentation du projet
+  flake8_rapport/       # Rapport de conformité PEP 8 (généré avec Flake8)
 
 
 ## Améliorations futures
