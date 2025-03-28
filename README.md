@@ -77,8 +77,9 @@ Dans le terminal, exécuter la commande suivante :
 
   ***Connexion*** :   
   
-    "Entrer votre code administrateur : "  
-    Code administrateur : 2312  
+    ```"Entrer votre code administrateur : "```
+  
+  Code administrateur : 2312  
     
  ***Menu*** :   
   
