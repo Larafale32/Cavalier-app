@@ -98,7 +98,7 @@ Dans le terminal, exécuter la commande suivante :
         /models               # Définit les classes des joueurs, tournois, tours, matchs   
         /views                # Gère l'affichage et l'interaction avec l'utilisateur
         /controllers          # Contient la logique du programme et les actions utilisateurs
-        /utils                # contien la fonction clear (pour nettoyer l'écran) et des chemins relatifs                                 entre fichier
+        /utils                # contien la fonction clear (pour nettoyer l'écran) et des chemins relatifs entre fichier
         /requirements.txt      # Liste des dépendances
         /main.py               # Point d'entrée du programme
         /README.md             # Documentation du projet```
