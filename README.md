@@ -86,17 +86,21 @@ Dans le terminal, exécuter la commande suivante :
 ### Structure du projet
 
 /cavalier-app 
-  ```/data                 # Contient les fichiers JSON pour la persistance des données ```
+
+    ```/data                 # Contient les fichiers JSON pour la persistance des données```
+    
+    ```/models               # Définit les classes des joueurs, tournois, tours, matchs```
   
-  ```/models               # Définit les classes des joueurs, tournois, tours, matchs```
-
-
-  /views                # Gère l'affichage et l'interaction avec l'utilisateur
-  /controllers          # Contient la logique du programme et les actions utilisateurs
-  requirements.txt      # Liste des dépendances
-  main.py               # Point d'entrée du programme
-  README.md             # Documentation du projet
-  flake8_rapport/       # Rapport de conformité PEP 8 (généré avec Flake8)
+    
+     ```/views                # Gère l'affichage et l'interaction avec l'utilisateur```
+     
+    ```/controllers          # Contient la logique du programme et les actions utilisateurs```
+    
+    ```requirements.txt      # Liste des dépendances```
+    
+    ```main.py               # Point d'entrée du programme```
+    
+    ```README.md             # Documentation du projet```
 
 
 ## Améliorations futures
