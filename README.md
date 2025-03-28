@@ -8,26 +8,42 @@ L'application fonctionne en mode console et utilise des fichiers JSON pour stock
 
 ## Fonctionnalités
 
-- **Gestion des joueurs** : Ajout des joueurs avec nom, prénom, date de naissance et identifiant national d'échecs.
+- **Connexion** :
+- L'administateur devra se connecter à l'application avec un code à 4 chiffres
+
+- **Gestion des joueurs** :
+  
+- Ajout des joueurs avec nom, prénom, date de naissance et identifiant national d'échecs.
+- Possibilité de modifier/supprimer un joueur
+  
 - **Organisation des tournois** :
   - Création de tournois avec nom, lieu, dates, nombre de tours, etc.
+  - Modififcation/supression des tournois
   - Enregistrement des joueurs dans un tournoi.
-  - Gestion des tours et des matchs.
+  - Lancer un toutnois
+  - Modifier les scores d'un round et passer au suivant jusqu'au dernier round 
+  - Afficher le classement
+    
 - **Génération automatique des paires** :
   - Mélange des joueurs au premier tour.
   - Attribution des adversaires en fonction des scores des joueurs.
   - Évitement des matchs en double.
+    
 - **Système de points** :
   - Victoire : 1 point.
   - Défaite : 0 point.
   - Match nul : 0,5 point pour chaque joueur.
+    
 - **Rapports** :
   - Liste des joueurs (par ordre alphabétique).
   - Liste des tournois.
   - Détails d'un tournoi (dates, joueurs, tours, matchs).
+  - Détails des rounds et des matches d'un tournois
+    
 - **Sauvegarde et chargement des données** :
-  - Persistance des informations via des fichiers JSON.
+  - Les données des joueurs, des administrateurs et des tournois sont rangées dans des fichiers JSON.
   - Chargement des données à l'exécution pour restaurer l'état précédent.
+    
 - **Architecture propre et maintenable** :
   - Respect du modèle MVC (Modèle-Vue-Contrôleur).
   - Conformité avec PEP 8 grâce à Flake8.
