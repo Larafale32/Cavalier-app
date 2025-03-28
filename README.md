@@ -12,7 +12,6 @@ L'application fonctionne en mode console et utilise des fichiers JSON pour stock
 - L'administateur devra se connecter à l'application avec un code à 4 chiffres
 
 - **Gestion des joueurs** :
-  
 - Ajout des joueurs avec nom, prénom, date de naissance et identifiant national d'échecs.
 - Possibilité de modifier/supprimer un joueur
   
