@@ -85,9 +85,12 @@ Dans le terminal, exécuter la commande suivante :
 
 ### Structure du projet
 
-/cavalier-app ```
-  /data                 # Contient les fichiers JSON pour la persistance des données ```
-  /models               # Définit les classes des joueurs, tournois, tours, matchs
+/cavalier-app 
+  ```/data                 # Contient les fichiers JSON pour la persistance des données ```
+  
+  ```/models               # Définit les classes des joueurs, tournois, tours, matchs```
+
+
   /views                # Gère l'affichage et l'interaction avec l'utilisateur
   /controllers          # Contient la logique du programme et les actions utilisateurs
   requirements.txt      # Liste des dépendances
