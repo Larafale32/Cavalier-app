@@ -171,20 +171,25 @@ class Tournois:
             print(round_instance.show_matches())
 
     def save(self):
-        # Charger les tournois existants
-        list_tournois = self.load_json()
+        try:
+            # Charger les tournois existants s'il y en a
+            with open(FILE_TOURNAMENT, "r") as f:
+                try:
+                    tournament_list = json.load(f)
+                    if not isinstance(tournament_list, list):
+                        tournament_list = []  # Corrige si ce n'est pas une liste
+                except json.JSONDecodeError:
+                    tournament_list = []  # Corrige si le fichier est vide ou invalide
+        except FileNotFoundError:
+            tournament_list = []  # Si le fichier n'existe pas, on crée une liste vide
 
         # Préparer les données du tournoi à sauvegarder
         tournament_data = {
             "id": str(self.id),
             "nom": self.nom,
             "lieu": self.lieu,
-            "date_debut": self.date_debut.strftime(
-                "%d/%m/%Y"
-            ),  # Conversion de la date en string
-            "date_fin": self.date_fin.strftime(
-                "%d/%m/%Y"
-            ),  # Conversion de la date en string
+            "date_debut": self.date_debut.strftime("%d/%m/%Y"),
+            "date_fin": self.date_fin.strftime("%d/%m/%Y"),
             "player_number": self.player_number,
             "status": self.state,
             "description": self.description,
@@ -207,16 +212,12 @@ class Tournois:
             ],
         }
 
-        # Si la liste des tournois est vide, initialiser une liste vide
-        if list_tournois is None:
-            list_tournois = []  # Si aucun tournoi existant, initialiser une liste vide
-
         # Ajouter le tournoi actuel à la liste
-        list_tournois.append(tournament_data)
+        tournament_list.append(tournament_data)
 
         # Sauvegarder la liste complète des tournois
         with open(FILE_TOURNAMENT, "w") as f:
-            json.dump(list_tournois, f, indent=4)  # Sauvegarder la liste des tournois
+            json.dump(tournament_list, f, indent=4)
 
     def update(self):
         try:

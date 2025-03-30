@@ -1,5 +1,6 @@
 from models.tournament import Tournois
 from datetime import datetime
+from utils.utils import Utilitaire
 
 
 class ViewTournament:

@@ -49,8 +49,10 @@ class ControllerTournament:
         while True:
             choice = self.view_menu.manage_tournaments()
             if choice == "1":
+                self.utilitaire.clear_screen()
                 self.view_tournament.start_tournament(self.current_tournament)
             elif choice == "2":
+                self.utilitaire.clear_screen()
                 while (
                     len(self.current_tournament.players_inscrits)
                     < self.current_tournament.player_number
@@ -71,12 +73,14 @@ class ControllerTournament:
                     )  # Passe le joueur sélectionné
 
             elif choice == "3":
+                self.utilitaire.clear_screen()
                 if not self.current_tournament.advance_to_next_round:
                     print("Tous les rounds sont terminés, le tournoi est terminé")
 
                 else:
                     self.view_tournament.manage_score(self.current_tournament)
             elif choice == "0":
+                self.utilitaire.clear_screen()
                 break
             else:
                 print("Veuillez entrer un choix valide (1 ou 2)")
