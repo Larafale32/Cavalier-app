@@ -30,7 +30,7 @@ class ControllerReport:
                 self.view_report.list_rounds_and_matches(tournament_choice)
             elif choice == "0":
                 self.utilitaire.clear_screen()  # !!
-                print("Retour au menu principal.")
+                self.view_menu.return_menu()
                 break
             else:
-                print("Entrée invalide, réessayez.")
+                self.view_menu.entree_invalide()

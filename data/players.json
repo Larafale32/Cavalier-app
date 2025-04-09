@@ -8,14 +8,6 @@
         "id": "f469010f-529d-4b8f-a3e8-9f5e2927a2d9"
     },
     {
-        "surname": "L\u00e9o",
-        "name": "Messi",
-        "date_of_birth": "24/02/1974",
-        "identifiant": 7865,
-        "score": 0,
-        "id": "cc563b7b-c620-44a4-97bf-f2249f279ee6"
-    },
-    {
         "surname": "Federer",
         "name": "Roger",
         "date_of_birth": "08/08/1981",
@@ -86,5 +78,21 @@
         "identifiant": "DE23765",
         "score": 0,
         "id": "da6c560c-dd3c-4d1f-ad95-6eccc0ced9ee"
+    },
+    {
+        "surname": "Freddy",
+        "name": "Martins",
+        "date_of_birth": "20/08/2000",
+        "identifiant": "CI19023",
+        "score": 0,
+        "id": "44ae04e8-4183-4694-b273-b16d2f1b2ab9"
+    },
+    {
+        "surname": "Thibault",
+        "name": "Courtois",
+        "date_of_birth": "20/08/1989",
+        "identifiant": "CI90241",
+        "score": 0,
+        "id": "331c19bc-5037-4408-bcd9-33bcee1138d4"
     }
 ]

@@ -10,11 +10,17 @@ class ViewMenu:
                     "Authentification réussite,vous êtes connecté \nBienvenu "
                     + admin.name
                 )
-                return admin
+                return True
 
             else:
                 print("Échec authentification, code administrateur non reconnu")
                 return False
+
+    def return_menu(self):
+        print("Retour au menu principal.")
+
+    def entree_invalide(self):
+        print("Erreur, entrée invalide, réessayez.")
 
     def display_menu(self):
         print(

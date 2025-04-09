@@ -41,6 +41,32 @@ class Tournois:
     def __str__(self):
         return f"{self.nom} : se déroulera à {self.lieu}. Il débutera le {self.date_debut} et prendra fin le {self.date_fin} "
 
+    def delete(self):
+        try:
+            tournois_list = Tournois.load_json() or []
+        except (FileNotFoundError, json.JSONDecodeError):
+            tournois_list = []
+
+        updated_list = [t for t in tournois_list if t.nom != self.nom]
+
+        list_to_save = []
+        for tournoi in updated_list:
+            tournoi_dict = tournoi.to_dict()
+            tournoi_dict["date_debut"] = (
+                tournoi_dict["date_debut"].strftime("%d/%m/%Y")
+                if isinstance(tournoi_dict["date_debut"], datetime)
+                else tournoi_dict["date_debut"]
+            )
+            tournoi_dict["date_fin"] = (
+                tournoi_dict["date_fin"].strftime("%d/%m/%Y")
+                if isinstance(tournoi_dict["date_fin"], datetime)
+                else tournoi_dict["date_fin"]
+            )
+            list_to_save.append(tournoi_dict)
+
+        with open(FILE_TOURNAMENT, "w") as f:
+            json.dump(list_to_save, f, indent=4)
+
     def register_player(self, player_selected):
         # Vérification si le joueur est déjà inscrit
         for player in self.players_inscrits:

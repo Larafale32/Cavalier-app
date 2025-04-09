@@ -82,28 +82,31 @@ class ViewPlayer:
         print("Score mis à jour avec succès.")
 
     def delete_player(self):
-        identifiant = input("Entrez l'identifiant du joueur à supprimer : ")
         players_list = Player.load_json()
         for player in players_list:
             print(
                 f"Prénom {player.name} / Nom : {player.surname} / Identifiant : {player.identifiant}"
             )
-        for player in Player.load_json():
-            if player.identifiant == identifiant:
+
+        identifiant = input("Entrez l'identifiant du joueur à supprimer : ")
+
+        for player in players_list:
+            if str(player.identifiant) == str(identifiant):
                 delete_player = input(
-                    f"Voulez-vous supprimer, {player.name, player.surname} ?  (OUI/NON) "
+                    f"Voulez-vous supprimer {player.name} {player.surname} ?  (OUI/NON) "
                 )
                 if delete_player.upper() == "OUI":
-                    players_list.pop(player)
+                    players_list.remove(player)
                     players_data = [player.to_dict() for player in players_list]
                     with open(FILE_PLAYER, "w") as file:
                         json.dump(players_data, file, indent=4)
                     print("Joueur supprimé avec succès.")
-
-                    break  # Sort de la boucle une fois le joueur trouvé et supprimé
-
+                    break
                 else:
-                    print("Aucun joueur trouvé avec cet identifiant.")
+                    print("Suppression annulée.")
+                    break
+        else:
+            print("Aucun joueur trouvé avec cet identifiant.")
 
     def add_player(self):
         while True:

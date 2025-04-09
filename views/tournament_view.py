@@ -11,6 +11,11 @@ class ViewTournament:
         for tournament in tournaments:
             print(f"{count}: --> {tournament.nom}")
             count += 1
+    def show_selected_tournament(self, selected_tournament):
+        print(f"Vous gérez maintenant le tournoi {selected_tournament.nom}")
+
+    def end_tournament(self):
+        print("Tous les rounds sont terminés, le tournoi est terminé")
 
     def create_tournament(self):
         print("Création d'un tournois")
@@ -78,14 +83,22 @@ class ViewTournament:
 
     def delete_tournament(self):
         print("Suppression d'un tournois")
+        tournois = Tournois.load_json()
+        for tournoi in tournois:
+            print(tournoi.nom)
+
         tournament_name = input("Nom du tournoi à supprimer : ")
-        for tournament in Tournois.load_json():
-            if tournament.nom == tournament_name:
-                Tournois.tournament_list.pop(tournament)
-                Tournois.load_json().pop(tournament)
-                print(f"Tournois {tournament_name} supprimé avec succès.")
-                return
-        print(f"Tournois {tournament_name} introuvable.")
+        for tournoi in tournois:
+            if tournoi.nom == tournament_name:
+                confirm = input(f"Supprimer {tournoi.nom} ? (OUI/NON) ")
+                if confirm.upper() == "OUI":
+                    tournoi.delete()
+                    print(f"Tournoi '{tournoi.nom}' supprimé.")
+                    return
+                else:
+                    print("Suppression annulée.")
+                    return
+        print(f"Tournoi '{tournament_name}' introuvable.")
 
     def tournament_choice(self):
         self.show_tournaments()  # Afficher la liste des tournois

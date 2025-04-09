@@ -28,7 +28,7 @@ class ControllerPlayer:
                 self.utilitaire.clear_screen()
                 break
             else:
-                print("Choix invalide, réessayez.")
+                self.view_menu.entree_invalide()
 
     def change_info_player(self):
         player = self.view_player.choose_players()  # Sélection du joueur
@@ -47,4 +47,4 @@ class ControllerPlayer:
             elif choice == "0":
                 break  # Quitter la boucle
             else:
-                print("Choix invalide, réessayez.")
+                self.view_menu.entree_invalide()

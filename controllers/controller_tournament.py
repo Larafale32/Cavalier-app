@@ -26,12 +26,12 @@ class ControllerTournament:
                 selected_tournament = self.return_tounraments()
                 if selected_tournament:
                     self.current_tournament = selected_tournament
-                    print(f"Vous gérez maintenant le tournoi {selected_tournament.nom}")
+                    self.view_tournament.show_selected_tournament(selected_tournament)
                     self.manage_tournaments()
                     break
 
                 else:
-                    print("Tournois introuvable")
+                    self.view_menu.entree_invalide()
             elif choice == "4":
                 self.utilitaire.clear_screen()  # !!
                 self.view_tournament.show_tournaments()
@@ -39,11 +39,10 @@ class ControllerTournament:
                 self.utilitaire.clear_screen()  # !!
                 break
             else:
-                print("Veuillez entrer un choix valide (1,2,3 ou 4)")
+                self.view_menu.entree_invalide()
 
     def manage_tournaments(self):
         if not self.current_tournament:
-            print("Aucun tournoi sélectionné.")
             return
 
         while True:
@@ -57,15 +56,11 @@ class ControllerTournament:
                     len(self.current_tournament.players_inscrits)
                     < self.current_tournament.player_number
                 ):
-                    print(
-                        "\nSélectionnez un joueur à inscrire (ou entrez 0 pour arrêter) :"
-                    )
                     player_selected = (
                         self.view_player.choose_players()
-                    )  # Sélection AVANT l'inscription
+                    )
 
                     if player_selected.identifiant == "0":
-                        print("Arrêt de l'inscription des joueurs.")
                         break
 
                     self.view_tournament.register_tournament(
@@ -75,15 +70,14 @@ class ControllerTournament:
             elif choice == "3":
                 self.utilitaire.clear_screen()
                 if not self.current_tournament.advance_to_next_round:
-                    print("Tous les rounds sont terminés, le tournoi est terminé")
-
+                    self.view_tournament.end_tournament()
                 else:
                     self.view_tournament.manage_score(self.current_tournament)
             elif choice == "0":
                 self.utilitaire.clear_screen()
                 break
             else:
-                print("Veuillez entrer un choix valide (1 ou 2)")
+                self.view_menu.entree_invalide()
 
     def return_tounraments(self):
         return self.view_tournament.tournament_choice()
